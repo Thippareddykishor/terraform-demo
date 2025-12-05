@@ -19,7 +19,7 @@ provisioner "remote-exec" {
       type = "ssh"
       user = "ec2-user"
       password = "DevOps321"
-      host = self.public_ip
+      host = aws_instance.ec2.public_ip
     }
     inline = [ 
         "pip3.11 ansible ansible",
