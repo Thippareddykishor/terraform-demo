@@ -13,6 +13,22 @@ resource "aws_instance" "ec2" {
 
 }
 
+resource "null_resource" "ec2-null" {
+provisioner "remote-exec" {
+    connection {
+      type = "ssh"
+      user = "ec2-user"
+      password = "DevOps321"
+      host = self.public_ip
+    }
+    inline = [ 
+        "pip3.11 ansible ansible",
+        "ansible-pull -i localhost, -U https://github.com/Thippareddykishor/ansible-test roboshop.yml -e component_name=frontend -e env=dev"
+     ]
+}  
+}
+
+
 data "aws_route53_zone" "zoneId" {
   private_zone = false
   name = "kommanuthala.store"
