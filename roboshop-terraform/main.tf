@@ -22,7 +22,7 @@ provisioner "remote-exec" {
       host = aws_instance.ec2.public_ip
     }
     inline = [ 
-        "pip3.11 ansible ansible",
+        "pip3.11 install ansible",
         "ansible-pull -i localhost, -U https://github.com/Thippareddykishor/ansible-test roboshop.yml -e component_name=frontend -e env=dev"
      ]
 }  
