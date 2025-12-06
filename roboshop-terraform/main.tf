@@ -3,12 +3,13 @@ provider "aws" {
 }
 
 resource "aws_instance" "ec2" {
+  count = length(var.instances)
   ami = var.ami
   instance_type = var.instance_type
   vpc_security_group_ids = var.security_groups
   
   tags = {
-    Name = "frontend"
+    Name = var.instances[count.index]
   }
 
 }
@@ -35,10 +36,11 @@ data "aws_route53_zone" "zoneId" {
 }
 
 resource "aws_route53_record" "ec2" {
-  records = [aws_instance.ec2.private_ip]
+  count = length(var.instances)
+  records = [aws_instance.ec2[count.index].private_ip]
   zone_id = data.aws_route53_zone.zoneId.id
   type = "A"
   ttl = "10"
-  name ="frontend-dev" 
+  name = "${var.instances[count.index]}-${var.env}"
 
 }
