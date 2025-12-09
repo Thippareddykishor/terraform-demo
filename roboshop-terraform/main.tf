@@ -7,7 +7,7 @@ module "ec2" {
   zone_id = data.aws_route53_zone.get_zone_id.id
   name = each.key
   vpc_security_group_ids = var.security_groups
-  instance_type = var.instance_type
+  instance_type = each.value.instance_type
 
 }
 
