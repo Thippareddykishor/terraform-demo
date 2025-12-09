@@ -11,11 +11,14 @@ variable "security_groups" {
 }
 
 variable "instances" {
-  default = [
-    "catalogue",
-    "frontend",
-    "mongodb"
-  ]
+  default = {
+        mongodb =   {}
+
+    catalogue = {}
+    frontend =  {}
+  }
+
+  
 }
 
 variable "env" {
